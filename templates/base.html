@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Classificador OFX</title>
+  <style>
+    :root { --azul:#1d4e89; --verde:#1a7f4b; --vermelho:#b42318; --cinza:#f4f6f8; --borda:#d9dee4; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, Segoe UI, Arial, sans-serif; background:var(--cinza); color:#1f2937; }
+    header { background:var(--azul); color:#fff; padding:16px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+    header a { color:#fff; margin-left:16px; text-decoration:none; font-size:14px; }
+    main { max-width:960px; margin:24px auto; padding:0 16px; }
+    .card { background:#fff; border:1px solid var(--borda); border-radius:8px; padding:20px; margin-bottom:20px; }
+    h1 { font-size:20px; margin:0; } h2 { font-size:17px; margin-top:0; }
+    table { width:100%; border-collapse:collapse; font-size:14px; }
+    th, td { padding:8px; border-bottom:1px solid var(--borda); text-align:left; }
+    th { background:var(--cinza); }
+    td.num, th.num { text-align:right; white-space:nowrap; }
+    .pos { color:var(--verde); } .neg { color:var(--vermelho); }
+    .tag { background:#e8eef7; color:var(--azul); border-radius:12px; padding:2px 10px; font-size:12px; white-space:nowrap; }
+    .totais { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:12px; }
+    .totais div { background:var(--cinza); border-radius:6px; padding:12px; }
+    .totais small { display:block; color:#6b7280; font-size:12px; }
+    .totais strong { font-size:18px; }
+    .erro { background:#fdecea; color:var(--vermelho); padding:10px 14px; border-radius:6px; margin-bottom:16px; }
+    button { background:var(--azul); color:#fff; border:0; border-radius:6px; padding:10px 20px; font-size:15px; cursor:pointer; }
+    .tabela { overflow-x:auto; }
+    footer { text-align:center; font-size:12px; color:#6b7280; padding:16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Classificador de Extratos OFX</h1>
+    <nav><a href="{{ url_for('index') }}">Enviar extrato</a><a href="{{ url_for('classificacao') }}">Ver banco</a></nav>
+  </header>
+  <main>{% block conteudo %}{% endblock %}</main>
+  <footer>José Elias Pires Jr · RA 26001935</footer>
+</body>
+</html>

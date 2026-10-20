@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="card">
+  <h2>Resumo por categoria</h2>
+  {% if not resumo %}<p>Nenhuma movimentação no banco ainda. Envie um extrato.</p>{% endif %}
+  <div class="tabela"><table>
+    <tr><th>Categoria</th><th class="num">Qtd.</th><th class="num">Total</th></tr>
+    {% for categoria, qtd, total in resumo %}
+    <tr>
+      <td><span class="tag">{{ categoria or 'Sem categoria' }}</span></td>
+      <td class="num">{{ qtd }}</td>
+      <td class="num {{ 'pos' if total >= 0 else 'neg' }}">{{ total|reais }}</td>
+    </tr>
+    {% endfor %}
+  </table></div>
+</div>
+
+<div class="card">
+  <h2>Todas as movimentações gravadas</h2>
+  <div class="tabela"><table>
+    <tr><th>Data</th><th>Descrição</th><th>Tipo</th><th>Categoria</th><th class="num">Valor</th></tr>
+    {% for data, descricao, valor, tipo, categoria in movimentacoes %}
+    <tr>
+      <td>{{ data.strftime('%d/%m/%Y') }}</td>
+      <td>{{ descricao }}</td>
+      <td>{{ tipo }}</td>
+      <td><span class="tag">{{ categoria or 'Sem categoria' }}</span></td>
+      <td class="num {{ 'pos' if valor > 0 else 'neg' }}">{{ valor|reais }}</td>
+    </tr>
+    {% endfor %}
+  </table></div>
+</div>
+{% endblock %}

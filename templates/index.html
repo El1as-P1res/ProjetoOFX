@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="card">
+  <h2>Enviar extrato bancário (.ofx)</h2>
+  {% if erro %}<div class="erro">{{ erro }}</div>{% endif %}
+  <p>O sistema lê as movimentações, classifica cada uma por categoria e grava no PostgreSQL.
+     Transações que já estão no banco não são gravadas de novo.</p>
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+    <p><input type="file" name="arquivo" accept=".ofx" required></p>
+    <button type="submit">Enviar e classificar</button>
+  </form>
+</div>
+{% endblock %}

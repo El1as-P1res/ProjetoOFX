@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="card">
+  <h2>Arquivo: {{ nome_arquivo }}</h2>
+  <div class="totais">
+    <div><small>Movimentações</small><strong>{{ transacoes|length }}</strong></div>
+    <div><small>Gravadas no banco</small><strong>{{ inseridas }}</strong></div>
+    <div><small>Duplicadas (ignoradas)</small><strong>{{ duplicadas }}</strong></div>
+    <div><small>Entradas</small><strong class="pos">{{ entradas|reais }}</strong></div>
+    <div><small>Saídas</small><strong class="neg">{{ saidas|reais }}</strong></div>
+    <div><small>Saldo</small><strong class="{{ 'pos' if saldo >= 0 else 'neg' }}">{{ saldo|reais }}</strong></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Classificação deste arquivo</h2>
+  <div class="tabela"><table>
+    <tr><th>Categoria</th><th class="num">Qtd.</th><th class="num">Total</th></tr>
+    {% for categoria, dados in resumo_arquivo %}
+    <tr>
+      <td><span class="tag">{{ categoria }}</span></td>
+      <td class="num">{{ dados.qtd }}</td>
+      <td class="num {{ 'pos' if dados.total >= 0 else 'neg' }}">{{ dados.total|reais }}</td>
+    </tr>
+    {% endfor %}
+  </table></div>
+</div>
+
+<div class="card">
+  <h2>Movimentações</h2>
+  <div class="tabela"><table>
+    <tr><th>Data</th><th>Descrição</th><th>Tipo</th><th>Categoria</th><th class="num">Valor</th><th></th></tr>
+    {% for t in transacoes %}
+    <tr>
+      <td>{{ t.data.strftime('%d/%m/%Y') }}</td>
+      <td>{{ t.descricao }}</td>
+      <td>{{ t.tipo }}</td>
+      <td><span class="tag">{{ t.categoria }}</span></td>
+      <td class="num {{ 'pos' if t.valor > 0 else 'neg' }}">{{ t.valor|reais }}</td>
+      <td><small>{{ 'nova' if t.nova else 'já existia' }}</small></td>
+    </tr>
+    {% endfor %}
+  </table></div>
+</div>
+
+<div class="card">
+  <h2>Resumo geral do banco (todos os extratos enviados)</h2>
+  <div class="tabela"><table>
+    <tr><th>Categoria</th><th class="num">Qtd.</th><th class="num">Total</th></tr>
+    {% for categoria, qtd, total in resumo_banco %}
+    <tr>
+      <td><span class="tag">{{ categoria }}</span></td>
+      <td class="num">{{ qtd }}</td>
+      <td class="num {{ 'pos' if total >= 0 else 'neg' }}">{{ total|reais }}</td>
+    </tr>
+    {% endfor %}
+  </table></div>
+</div>
+{% endblock %}
